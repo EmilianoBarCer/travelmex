@@ -1,0 +1,3 @@
+const String supabaseUrl = 'https://cmiiofozcdvlfqbscidk.supabase.co';
+const String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtaWlvZm96Y2R2bGZxYnNjaWRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc0MzUxMjMsImV4cCI6MjA5MzAxMTEyM30.G3F9jZgtUWcf2CF8hWm9m6nn04wJaa8CtXkT8iXN3Bg';
+const String supabasePublishableKey = 'sb_publishable_o9zEs2pQmDycMeq0S-r9vQ_NAgqZRGG';
