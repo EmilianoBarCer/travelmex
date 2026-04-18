@@ -14,7 +14,7 @@ Future<void> main() async {
 
   await Supabase.initialize(
     url: 'https://ragddoryqrckalferilf.supabase.co',
-    anonKey: 'sb_publisible_-Oy1Sv5jHjDBhMs6sao3aA_HxnAJLwS', // Usa la que sale en tu imagen
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhZ2Rkb3J5cXJja2FsZmVyaWxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0OTU0OTUsImV4cCI6MjA5MjA3MTQ5NX0.MEIHXvvdNXdVV8_PBuL-lYjI_9DcpjrnydkBulS-8sI',
   );
 
   runApp(const TravelMexApp());
