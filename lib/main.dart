@@ -21,7 +21,7 @@ Future<void> main() async {
 }
 
 class TravelMexApp extends StatelessWidget {
-  const TravelMexApp({sgit add .uper.key});
+  const TravelMexApp({super.key});
 
   @override
   Widget build(BuildContext context) {

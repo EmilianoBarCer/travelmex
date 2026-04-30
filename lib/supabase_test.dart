@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'constants/supabase_keys.dart';
-import '../travelmex.dart';
+import 'travelmex.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
