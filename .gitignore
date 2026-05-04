@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#lib
+lib/core/constants/supabase_keys.dart
+lib/core/constants/google_maps_keys.dart

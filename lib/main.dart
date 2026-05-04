@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'constants/supabase_keys.dart';
-import 'theme/app_theme.dart';
-import 'providers/auth_provider.dart';
-import 'screens/auth/auth_gate.dart';
-import 'screens/auth/register_screen.dart';
-import 'screens/details/details_screen.dart';
-import 'screens/add_review_screen.dart';
+import 'core/constants/supabase_keys.dart';
+import 'core/theme/app_theme.dart';
+import 'lobby/auth_provider.dart';
+import 'lobby/auth_gate.dart';
+import 'lobby/register/register_screen.dart';
+import 'destino/details_screen.dart';
+import 'destino/add_review_screen.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(
     url: supabaseUrl,
-    anonKey: supabaseAnonKey,
+    anonKey: supabasePublishableKey,
   );
 
   runApp(const TravelMexApp());
