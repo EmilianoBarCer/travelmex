@@ -15,6 +15,7 @@ dependencies:
 
   # Mapa real
   google_maps_flutter: ^2.4.0
+  location: ^8.0.1
 
   # Estética y Diseño
   google_fonts: ^6.1.0
