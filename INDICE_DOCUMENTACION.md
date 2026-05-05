@@ -30,6 +30,10 @@
    - **CONFIGURACION_GOOGLE_MAPS.md** → Documentación completa
    - **ARBOL_PROYECTO_COMPLETO.md** → Ubicaciones GPS
 
+### 🧩 Supabase y Lugares
+   - **SUPABASE_Y_LUGARES.md** → Configuración Supabase y destinos
+   - **sql/schema_lugares_guadalajara.sql** → Datos reales de Guadalajara
+
 ### ⭐ Sistema de Reseñas
    - **SISTEMA_RESENAS.md** → Documentación completa
    - **RESUMEN_ACTUALIZACION_FINAL.md** → Resumen
@@ -55,6 +59,7 @@
 | QUICK_START.md | 1.5 KB | Inicio rápido | 5 min |
 | INSTRUCCIONES_FINALES.md | 12 KB | Pasos detallados | 30 min |
 | CONFIGURACION_GOOGLE_MAPS.md | 8 KB | Setup Google Maps | 15 min |
+| SUPABASE_Y_LUGARES.md | 6 KB | Configuración Supabase y datos | 10 min |
 | SISTEMA_RESENAS.md | 9 KB | Documentación reseñas | 10 min |
 | RESUMEN_ACTUALIZACION_FINAL.md | 10 KB | Cambios finales | 10 min |
 | ARBOL_PROYECTO_COMPLETO.md | 11 KB | Estructura visual | 10 min |
