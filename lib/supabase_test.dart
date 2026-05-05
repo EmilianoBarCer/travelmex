@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'core/constants/supabase_keys.dart';
-import 'core/theme/app_theme.dart';
-
+import 'constants/supabase_keys.dart';
+import '../travelmex.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,38 +60,33 @@ class _SupabaseTestScreenState extends State<SupabaseTestScreen> {
       });
 
       // Test 2: Fetch categories
-      final categoriesResponse = await client
-          .from('categories')
-          .select()
-          .limit(5);
+      final categoriesResponse =
+          await client.from('categories').select().limit(5);
 
       setState(() {
-        _results.add('✅ Consulta de categorías exitosa: ${categoriesResponse.length} registros');
+        _results.add(
+            '✅ Consulta de categorías exitosa: ${categoriesResponse.length} registros');
         _status = 'Probando consulta de destinos...';
       });
 
       // Test 3: Fetch destinations
-      final destinationsResponse = await client
-          .from('destinations')
-          .select()
-          .limit(3);
+      final destinationsResponse =
+          await client.from('destinations').select().limit(3);
 
       setState(() {
-        _results.add('✅ Consulta de destinos exitosa: ${destinationsResponse.length} registros');
+        _results.add(
+            '✅ Consulta de destinos exitosa: ${destinationsResponse.length} registros');
         _status = 'Probando consulta de reseñas...';
       });
 
       // Test 4: Fetch reviews
-      final reviewsResponse = await client
-          .from('reviews')
-          .select()
-          .limit(2);
+      final reviewsResponse = await client.from('reviews').select().limit(2);
 
       setState(() {
-        _results.add('✅ Consulta de reseñas exitosa: ${reviewsResponse.length} registros');
+        _results.add(
+            '✅ Consulta de reseñas exitosa: ${reviewsResponse.length} registros');
         _status = '¡Todas las pruebas pasaron exitosamente! 🎉';
       });
-
     } catch (e) {
       setState(() {
         _status = '❌ Error en la conexión';
@@ -116,7 +110,8 @@ class _SupabaseTestScreenState extends State<SupabaseTestScreen> {
             Text(
               _status,
               style: TmTheme.light.textTheme.headlineSmall?.copyWith(
-                color: _status.contains('❌') ? TmColors.error : TmColors.primary,
+                color:
+                    _status.contains('❌') ? TmColors.error : TmColors.primary,
                 fontWeight: FontWeight.bold,
               ),
             ),
