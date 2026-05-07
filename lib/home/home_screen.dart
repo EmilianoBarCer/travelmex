@@ -8,8 +8,6 @@ import '../shared/widgets/error_view.dart';
 import '../shared/widgets/empty_view.dart';
 import '../core/theme/app_theme.dart';
 
-/// 🏠 HomeScreen
-/// Main screen with SliverAppBar, featured destinations, and category filtering
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -22,29 +20,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeProvider(),
-      child: Consumer<HomeProvider>(
-        builder: (context, provider, child) {
-          return Scaffold(
-            body: CustomScrollView(
-              slivers: [
-                // Gradient SliverAppBar
-                _buildSliverAppBar(),
-
-                // Content
-                SliverToBoxAdapter(
-                  child: provider.isLoading
-                      ? _buildLoadingView()
-                      : provider.error != null
-                          ? _buildErrorView(provider)
-                          : _buildContent(provider),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+    // ✅ Solo Consumer, el Provider está en main.dart
+    return Consumer<HomeProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              _buildSliverAppBar(),
+              SliverToBoxAdapter(
+                child: provider.isLoading
+                    ? _buildLoadingView()
+                    : provider.error != null
+                    ? _buildErrorView(provider)
+                    : _buildContent(provider),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -60,27 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                TmColors.primaryDark,
-                TmColors.primary,
-              ],
+              colors: [TmColors.primaryDark, TmColors.primary],
             ),
           ),
           child: Stack(
             children: [
-              // Background pattern (optional)
               Positioned.fill(
                 child: Opacity(
                   opacity: 0.1,
                   child: Image.asset(
-                    'assets/images/pattern.png', // Add this asset
+                    'assets/images/pattern.png',
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) => Container(),
                   ),
                 ),
               ),
-
-              // Content
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -117,7 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Category chips loading
           SizedBox(
             height: 44,
             child: ListView.separated(
@@ -136,17 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
           const SizedBox(height: 24),
-
-          // Featured section
-          Text(
-            'Destacados',
-            style: TmTheme.light.textTheme.headlineSmall,
-          ),
-
+          Text('Destacados', style: TmTheme.light.textTheme.headlineSmall),
           const SizedBox(height: 16),
-
           SizedBox(
             height: 200,
             child: ListView.separated(
@@ -156,21 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) => const ShimmerCard(),
             ),
           ),
-
           const SizedBox(height: 32),
-
-          // Nearby section
-          Text(
-            'Cerca de ti',
-            style: TmTheme.light.textTheme.headlineSmall,
-          ),
-
+          Text('Cerca de ti', style: TmTheme.light.textTheme.headlineSmall),
           const SizedBox(height: 16),
-
-          // List items loading
           ...List.generate(
             3,
-            (index) => ShimmerLoading(
+                (index) => ShimmerLoading(
               child: Container(
                 height: 120,
                 margin: const EdgeInsets.only(bottom: 12),
@@ -202,7 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Category Filter
           CategoryChipList(
             categories: provider.categories,
             selectedCategoryId: _selectedCategoryId,
@@ -213,10 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
-
           const SizedBox(height: 24),
-
-          // Featured Destinations
           if (provider.featuredDestinations.isNotEmpty) ...[
             Text(
               'Destacados',
@@ -224,9 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.w700,
               ),
             ),
-
             const SizedBox(height: 16),
-
             SizedBox(
               height: 200,
               child: ListView.separated(
@@ -242,11 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-
             const SizedBox(height: 32),
           ],
-
-          // All Destinations
           Text(
             _selectedCategoryId != null && _selectedCategoryId != -1
                 ? 'Resultados'
@@ -255,9 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
               fontWeight: FontWeight.w700,
             ),
           ),
-
           const SizedBox(height: 16),
-
           if (provider.destinations.isEmpty)
             const EmptyView(
               icon: Icons.search_off,

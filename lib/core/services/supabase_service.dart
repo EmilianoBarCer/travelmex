@@ -119,16 +119,17 @@ class SupabaseService {
     try {
       final response = await _client
           .from('reviews')
-          .select('*, profiles:user_id(name, avatar_url)')
+          .select('*, profiles:user_id(name, avatar_url), destinations:destination_id(name)') // ✅ join
           .eq('user_id', userId)
           .order('created_at', ascending: false);
 
       return response
           .map((json) => Review.fromMap({
-                ...json,
-                'user_name': json['profiles']?['name'],
-                'user_avatar': json['profiles']?['avatar_url'],
-              }))
+        ...json,
+        'user_name': json['profiles']?['name'],
+        'user_avatar': json['profiles']?['avatar_url'],
+        'destination_name': json['destinations']?['name'], // ✅
+      }))
           .toList();
     } catch (e) {
       throw Exception('Failed to fetch user reviews: $e');
@@ -260,16 +261,20 @@ class SupabaseService {
     required String email,
     String? name,
     String? avatarUrl,
+    String? bio,      // ✅ nuevo
+    String? location, // ✅ nuevo
   }) async {
     try {
       final response = await _client
           .from('profiles')
           .upsert({
-            'id': userId,
-            'email': email,
-            'name': name,
-            'avatar_url': avatarUrl,
-          }, onConflict: 'id')
+        'id': userId,
+        'email': email,
+        'name': name,
+        'avatar_url': avatarUrl,
+        'bio': bio,           // ✅
+        'location': location, // ✅
+      }, onConflict: 'id')
           .select()
           .maybeSingle();
 

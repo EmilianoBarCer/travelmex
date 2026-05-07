@@ -175,17 +175,30 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> _loadProfileForUser(User user) async {
     try {
+      // 1. Intentar cargar perfil existente
       final profile = await _service.fetchProfileByUserId(user.id);
       if (profile != null) {
         _profile = profile;
         return;
       }
 
-      _profile = await _service.upsertProfile(
-        userId: user.id,
-        email: user.email ?? '',
-        name: user.email?.split('@').first,
-      );
+      // 2. Si no existe, intentar crearlo
+      try {
+        _profile = await _service.upsertProfile(
+          userId: user.id,
+          email: user.email ?? '',
+          name: user.email?.split('@').first,
+        );
+      } catch (upsertError) {
+        // 3. Si falla el upsert (RLS u otro), usar datos mínimos del auth
+        debugPrint('upsert falló, usando datos de auth: $upsertError');
+        _profile = UserProfile(
+          id: user.id,
+          email: user.email ?? '',
+          name: user.email?.split('@').first,
+          avatarUrl: null,
+        );
+      }
     } catch (e) {
       if (_isMissingProfilesTable(e)) {
         _profile = UserProfile(
@@ -196,7 +209,14 @@ class AuthProvider extends ChangeNotifier {
         );
         return;
       }
-      rethrow;
+      // 4. Incluso si todo falla, no dejar _profile null
+      debugPrint('Error cargando perfil: $e');
+      _profile = UserProfile(
+        id: user.id,
+        email: user.email ?? '',
+        name: user.email?.split('@').first,
+        avatarUrl: null,
+      );
     }
   }
 

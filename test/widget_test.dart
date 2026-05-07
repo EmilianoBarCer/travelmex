@@ -13,7 +13,7 @@ import 'package:travelmex/main.dart';
 void main() {
   testWidgets('TravelMex app smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const TravelMexApp());
+    await tester.pumpWidget(const AplicacionTravelMex());
 
     // Verify that our app builds successfully
     expect(find.byType(MaterialApp), findsOneWidget);

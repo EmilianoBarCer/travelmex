@@ -37,44 +37,41 @@ class _SearchScreenState extends State<SearchScreen>
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => SearchProvider(),
-      child: Consumer<SearchProvider>(
-        builder: (context, provider, child) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'Buscar Destinos',
-                style: TmTheme.light.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              bottom: TabBar(
-                controller: _tabController,
-                tabs: const [
-                  Tab(text: 'Buscar'),
-                  Tab(text: 'Mapa'),
-                ],
-                labelStyle: TmTheme.light.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-                unselectedLabelStyle: TmTheme.light.textTheme.labelLarge,
-                indicatorColor: TmColors.primary,
-                labelColor: TmColors.primary,
-                unselectedLabelColor: TmColors.grey600,
+    // ✅ Solo Consumer, el Provider está en main.dart
+    return Consumer<SearchProvider>(
+      builder: (context, provider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Buscar Destinos',
+              style: TmTheme.light.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
               ),
             ),
-
-            body: TabBarView(
+            bottom: TabBar(
               controller: _tabController,
-              children: [
-                _buildSearchTab(provider),
-                _buildMapTab(provider),
+              tabs: const [
+                Tab(text: 'Buscar'),
+                Tab(text: 'Mapa'),
               ],
+              labelStyle: TmTheme.light.textTheme.labelLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+              unselectedLabelStyle: TmTheme.light.textTheme.labelLarge,
+              indicatorColor: TmColors.primary,
+              labelColor: TmColors.primary,
+              unselectedLabelColor: TmColors.grey600,
             ),
-          );
-        },
-      ),
+          ),
+          body: TabBarView(
+            controller: _tabController,
+            children: [
+              _buildSearchTab(provider),
+              _buildMapTab(provider),
+            ],
+          ),
+        );
+      },
     );
   }
 

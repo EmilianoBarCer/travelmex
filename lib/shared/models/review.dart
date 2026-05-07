@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-/// ⭐ Review Model
-/// Immutable data class for destination reviews
 @immutable
 class Review {
   const Review({
@@ -13,6 +11,7 @@ class Review {
     required this.createdAt,
     this.userName,
     this.userAvatar,
+    this.destinationName, // ✅ nuevo
   });
 
   final String id;
@@ -23,8 +22,8 @@ class Review {
   final DateTime createdAt;
   final String? userName;
   final String? userAvatar;
+  final String? destinationName; // ✅ nuevo
 
-  /// Factory constructor for Supabase deserialization
   factory Review.fromMap(Map<String, dynamic> map) {
     return Review(
       id: map['id'] as String,
@@ -35,10 +34,10 @@ class Review {
       createdAt: DateTime.parse(map['created_at'] as String),
       userName: map['user_name'] as String?,
       userAvatar: map['user_avatar'] as String?,
+      destinationName: map['destination_name'] as String?, // ✅
     );
   }
 
-  /// Convert to Map for Supabase operations
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -49,10 +48,10 @@ class Review {
       'created_at': createdAt.toIso8601String(),
       'user_name': userName,
       'user_avatar': userAvatar,
+      'destination_name': destinationName, // ✅
     };
   }
 
-  /// Create a copy with updated fields
   Review copyWith({
     String? id,
     String? destinationId,
@@ -62,6 +61,7 @@ class Review {
     DateTime? createdAt,
     String? userName,
     String? userAvatar,
+    String? destinationName,
   }) {
     return Review(
       id: id ?? this.id,
@@ -72,23 +72,21 @@ class Review {
       createdAt: createdAt ?? this.createdAt,
       userName: userName ?? this.userName,
       userAvatar: userAvatar ?? this.userAvatar,
+      destinationName: destinationName ?? this.destinationName, // ✅
     );
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Review &&
-          runtimeType == other.runtimeType &&
-          id == other.id;
+          other is Review && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
 
   @override
   String toString() =>
-      'Review(id: $id, rating: $rating, comment: ${comment.substring(0, min(50, comment.length))}${comment.length > 50 ? "..." : ""})';
+      'Review(id: $id, rating: $rating, comment: ${comment.substring(0, _min(50, comment.length))}${comment.length > 50 ? "..." : ""})';
 }
 
-/// Utility function for min
-int min(int a, int b) => a < b ? a : b;
+int _min(int a, int b) => a < b ? a : b;
